@@ -6,6 +6,7 @@ import com.mengzhou.graphql.repository.BookRepository;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,11 +33,11 @@ public class BookController {
 	}
 
 	@MutationMapping
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public Book createBook(@Argument String title, @Argument int pages, @Argument String author ) {
 		 Book book = new Book(title, pages, author);
 		 return bookRepository.save(book);
 	}
-
 
 	@MutationMapping
 	public Book addBook(@Argument BookInput book) {

@@ -1,3 +1,6 @@
+scalar BigDecimal
+scalar LocalDateTime
+
 type Mutation {
     createBook(title: String, pages: Int, author: String): Book
     addBook(book: BookInput!): Book
@@ -9,6 +12,16 @@ type Mutation {
 type Query {
     findAllBooks: [Book]
     findBook(id: ID!): Book
+    findAllProducts: [Product]
+}
+
+type Product {
+    id: ID!
+    title: String
+    isOnSale: Boolean
+    weight: Float
+    price: BigDecimal
+    dateCreated: LocalDateTime
 }
 
 type Book {
